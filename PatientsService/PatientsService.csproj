@@ -5,7 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
+    <PackageReference Include="Hl7.Fhir.Specification.R4" Version="3.7.0" />
+    
   </ItemGroup>
 
 </Project>
