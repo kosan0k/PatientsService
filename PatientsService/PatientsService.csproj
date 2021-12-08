@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Hl7.Fhir.Specification.R4" Version="3.7.0" />
-    
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="2.2.0" />    
   </ItemGroup>
 
 </Project>
