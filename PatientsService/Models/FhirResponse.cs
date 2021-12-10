@@ -4,27 +4,27 @@ using Microsoft.AspNetCore.DataProtection.KeyManagement;
 
 namespace PatientsService.Models
 {
-    public class Response
+    public class FhirResponse
     {
         public HttpStatusCode StatusCode;
         public IKey Key;
         public Resource Resource;
 
-        public Response(HttpStatusCode code, IKey key, Resource resource)
+        public FhirResponse(HttpStatusCode code, IKey key, Resource resource)
         {
             StatusCode = code;
             Key = key;
             Resource = resource;
         }
 
-        public Response(HttpStatusCode code, Resource resource)
+        public FhirResponse(HttpStatusCode code, Resource resource)
         {
             StatusCode = code;
             Key = null;
             Resource = resource;
         }
 
-        public Response(HttpStatusCode code)
+        public FhirResponse(HttpStatusCode code)
         {
             StatusCode = code;
             Key = null;

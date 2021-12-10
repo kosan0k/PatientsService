@@ -22,6 +22,7 @@ namespace PatientsService
             services.AddControllers(options =>
             {
                 ConfigureInputFormatters(options.InputFormatters);
+                ConfigureOutputFormatters(options.OutputFormatters);
             });
         }
 
@@ -37,8 +38,14 @@ namespace PatientsService
 
         private void ConfigureInputFormatters(FormatterCollection<IInputFormatter> inputFormatters)
         {
-            inputFormatters.RemoveType(typeof(SystemTextJsonInputFormatter));
-            inputFormatters.Insert(0, new PatientJsonInputFormatter(new FhirJsonParser()));
+            inputFormatters.Clear();
+            inputFormatters.Add(new PatientJsonInputFormatter(new FhirJsonParser()));
+        }
+
+        private void ConfigureOutputFormatters(FormatterCollection<IOutputFormatter> outputFormatters)
+        {
+            outputFormatters.Clear();
+            outputFormatters.Add(new PatientJsonOutputFormatter());
         }
     }
 }

@@ -21,15 +21,15 @@ namespace PatientsService.Controllers
         }
 
         [HttpGet("{id}")]
-        public Task<Response> Read(string id)
+        public Task<FhirResponse> Read(string id)
         {
-            return Task.FromResult(new Response(HttpStatusCode.BadRequest));
+            return Task.FromResult(new FhirResponse(HttpStatusCode.BadRequest));
         }
 
         [HttpPost]
-        public Task<Response> Create(Patient resource)
+        public Task<FhirResponse> Create(Patient resource)
         {
-            return Task.FromResult(new Response(HttpStatusCode.BadRequest));
+            return Task.FromResult(new FhirResponse(HttpStatusCode.BadRequest));
         }
     }
 }
