@@ -45,7 +45,7 @@ namespace PatientsService
         private void ConfigureOutputFormatters(FormatterCollection<IOutputFormatter> outputFormatters)
         {
             outputFormatters.Clear();
-            outputFormatters.Add(new PatientJsonOutputFormatter());
+            outputFormatters.Add(new PatientJsonOutputFormatter(new FhirJsonSerializer()));
         }
     }
 }

@@ -13,8 +13,12 @@ namespace PatientsService.Serialization.Formatters
 {
     public class PatientJsonOutputFormatter : TextOutputFormatter
     {
-        public PatientJsonOutputFormatter()
+        private readonly FhirJsonSerializer _patientSerializer;
+
+        public PatientJsonOutputFormatter(FhirJsonSerializer serializer)
         {
+            _patientSerializer = serializer ?? throw new ArgumentNullException(nameof(serializer));
+
             SupportedEncodings.Clear();
             SupportedEncodings.Add(Encoding.UTF8);
 
@@ -41,9 +45,6 @@ namespace PatientsService.Serialization.Formatters
             if (selectedEncoding != Encoding.UTF8)
                 throw Error.InvalidOperation($"FHIR supports UTF-8 encoding exclusively, not {selectedEncoding.WebName}");
 
-            if (!(context.HttpContext.RequestServices.GetService(typeof(FhirJsonSerializer)) is FhirJsonSerializer serializer))
-                throw Error.NotSupported($"Missing required dependency '{nameof(FhirJsonSerializer)}'");
-
             var responseBody = context.HttpContext.Response.Body;
             var writeBodyString = string.Empty;
             var summaryType = context.HttpContext.Request.RequestSummary();
@@ -57,14 +58,14 @@ namespace PatientsService.Serialization.Formatters
 
                 if (response.Resource != null)
                 {
-                    writeBodyString = serializer.SerializeToString(response.Resource, summaryType);
+                    writeBodyString = _patientSerializer.SerializeToString(response.Resource, summaryType);
                 }
             }
             else if (typeof(Patient).IsAssignableFrom(context.ObjectType))
             {
                 if (context.Object != null)
                 {
-                    writeBodyString = serializer.SerializeToString(context.Object as Patient, summaryType);
+                    writeBodyString = _patientSerializer.SerializeToString(context.Object as Patient, summaryType);
                 }
             }
 
